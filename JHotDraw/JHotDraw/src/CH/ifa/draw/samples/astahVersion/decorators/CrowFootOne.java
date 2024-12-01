@@ -9,7 +9,7 @@
  *          http://www.opensource.org/licenses/lgpl-license.html
  */
 
-package CH.ifa.draw.samples.astahVersion;
+package CH.ifa.draw.samples.astahVersion.decorators;
 
 import java.io.*;
 import java.awt.*;

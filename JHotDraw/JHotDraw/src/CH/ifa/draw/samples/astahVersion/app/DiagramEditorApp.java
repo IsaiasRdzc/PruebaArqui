@@ -9,10 +9,15 @@
 *				http://www.opensource.org/licenses/lgpl-license.html
 */
 
-package CH.ifa.draw.samples.astahVersion;
+package CH.ifa.draw.samples.astahVersion.app;
 
 import javax.swing.JToolBar;
 import CH.ifa.draw.framework.*;
+import CH.ifa.draw.samples.astahVersion.components.DecoratedLineConnection;
+import CH.ifa.draw.samples.astahVersion.components.NodeComponent;
+import CH.ifa.draw.samples.astahVersion.components.NodeText;
+import CH.ifa.draw.samples.astahVersion.decorators.CrowFootMany;
+import CH.ifa.draw.samples.astahVersion.decorators.CrowFootOne;
 import CH.ifa.draw.standard.*;
 import CH.ifa.draw.figures.*;
 import CH.ifa.draw.application.DrawApplication;
@@ -30,9 +35,6 @@ public class DiagramEditorApp extends DrawApplication {
 		crowFootMany = new CrowFootMany();
 		crowFootOne = new CrowFootOne();
 	}
-
-	// CrowFootMany crowFootMany = new CrowFootMany();
-	// CrowFootOne crowFootOne = new CrowFootOne();
 
 	protected void createTools(JToolBar palette) {
 		super.createTools(palette);

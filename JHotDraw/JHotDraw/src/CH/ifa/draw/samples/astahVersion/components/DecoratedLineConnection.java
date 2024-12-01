@@ -1,4 +1,4 @@
-package CH.ifa.draw.samples.astahVersion;
+package CH.ifa.draw.samples.astahVersion.components;
 
 import CH.ifa.draw.figures.AbstractLineDecoration;
 import CH.ifa.draw.figures.LineConnection;

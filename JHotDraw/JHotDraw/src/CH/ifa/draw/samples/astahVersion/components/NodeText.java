@@ -1,4 +1,4 @@
-package CH.ifa.draw.samples.astahVersion;
+package CH.ifa.draw.samples.astahVersion.components;
 
 import CH.ifa.draw.framework.*;
 import CH.ifa.draw.standard.*;
@@ -9,29 +9,28 @@ import java.util.*;
 import java.util.List;
 import java.awt.*;
 
-public class NodeComponent extends TextFigure {
+/**
+ * @version <$CURRENT_VERSION$>
+ */
+public class NodeText extends TextFigure {
     private static final int BORDER = 6;
-    private static final int HEADER_HEIGHT = 20; // Altura del encabezado
-    private List<Connector> fConnectors;
+    private List fConnectors;
     private boolean fConnectorsVisible;
 
-    public NodeComponent() {
+    public NodeText() {
         initialize();
         fConnectors = null;
     }
 
-    @Override
     public Rectangle displayBox() {
         Rectangle box = super.displayBox();
         int d = BORDER;
         box.grow(d, d);
-        box.height += HEADER_HEIGHT; // Expandir para incluir el encabezado
         return box;
     }
 
-    @Override
     public boolean containsPoint(int x, int y) {
-        // Agregar margen adicional para los conectores
+        // add slop for connectors
         if (fConnectorsVisible) {
             Rectangle r = displayBox();
             int d = LocatorConnector.SIZE / 2;
@@ -42,32 +41,18 @@ public class NodeComponent extends TextFigure {
     }
 
     private void drawBorder(Graphics g) {
-        Rectangle r = displayBox();
-        g.setColor(getFrameColor());
-        g.drawRect(r.x, r.y, r.width - 1, r.height - 1);
+        // Este método está vacío para evitar que los bordes se dibujen
     }
 
-    @Override
     public void draw(Graphics g) {
-        Rectangle r = displayBox();
-
-        // Dibujar el encabezado
-        g.setColor(getFrameColor());
-        g.drawRect(r.x, r.y, r.width - 1, HEADER_HEIGHT);
-        g.setFont(getFont());
-        g.drawString(getText(), r.x + BORDER, r.y + HEADER_HEIGHT - 5);
-
-        // Dibujar el cuerpo
-        g.drawRect(r.x, r.y + HEADER_HEIGHT, r.width - 1, r.height - HEADER_HEIGHT - 1);
-
-        // Dibujar conectores si son visibles
+        super.draw(g);
+        // Elimina la llamada a drawBorder(g) para no dibujar los bordes
         drawConnectors(g);
     }
 
-    @Override
     public HandleEnumeration handles() {
         ConnectionFigure prototype = new LineConnection();
-        List<Handle> handles = CollectionsFactory.current().createList();
+        List handles = CollectionsFactory.current().createList();
         handles.add(new ConnectionHandle(this, RelativeLocator.east(), prototype));
         handles.add(new ConnectionHandle(this, RelativeLocator.west(), prototype));
         handles.add(new ConnectionHandle(this, RelativeLocator.south(), prototype));
@@ -82,9 +67,9 @@ public class NodeComponent extends TextFigure {
 
     private void drawConnectors(Graphics g) {
         if (fConnectorsVisible) {
-            Iterator<Connector> iter = connectors();
+            Iterator iter = connectors();
             while (iter.hasNext()) {
-                iter.next().draw(g);
+                ((Connector) iter.next()).draw(g);
             }
         }
     }
@@ -98,7 +83,7 @@ public class NodeComponent extends TextFigure {
         return findConnector(x, y);
     }
 
-    private Iterator<Connector> connectors() {
+    private Iterator connectors() {
         if (fConnectors == null) {
             createConnectors();
         }
@@ -114,12 +99,12 @@ public class NodeComponent extends TextFigure {
     }
 
     private Connector findConnector(int x, int y) {
-        // Encuentra el conector más cercano
+        // return closest connector
         long min = Long.MAX_VALUE;
         Connector closest = null;
-        Iterator<Connector> iter = connectors();
+        Iterator iter = connectors();
         while (iter.hasNext()) {
-            Connector c = iter.next();
+            Connector c = (Connector) iter.next();
             Point p2 = Geom.center(c.displayBox());
             long d = Geom.length2(x, y, p2.x, p2.y);
             if (d < min) {
@@ -131,13 +116,21 @@ public class NodeComponent extends TextFigure {
     }
 
     private void initialize() {
-        setText("ENTITY"); // Texto inicial predeterminado
+        setText("text");
         Font fb = new Font("Helvetica", Font.BOLD, 12);
         setFont(fb);
         createConnectors();
     }
 
-    @Override
+    /**
+     * Usually, a TextHolders is implemented by a Figure subclass. To avoid casting
+     * a TextHolder to a Figure this method can be used for polymorphism (in this
+     * case, let the (same) object appear to be of another type).
+     * Note, that the figure returned is not the figure to which the TextHolder is
+     * (and its representing figure) connected.
+     * 
+     * @return figure responsible for representing the content of this TextHolder
+     */
     public Figure getRepresentingFigure() {
         return this;
     }
