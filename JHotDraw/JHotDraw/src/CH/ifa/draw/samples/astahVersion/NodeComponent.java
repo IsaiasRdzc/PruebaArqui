@@ -1,4 +1,4 @@
-package CH.ifa.draw.samples.net;
+package CH.ifa.draw.samples.astahVersion;
 
 import CH.ifa.draw.framework.*;
 import CH.ifa.draw.standard.*;
@@ -9,13 +9,13 @@ import java.util.*;
 import java.util.List;
 import java.awt.*;
 
-public class EntityNode extends TextFigure {
+public class NodeComponent extends TextFigure {
     private static final int BORDER = 6;
     private static final int HEADER_HEIGHT = 20; // Altura del encabezado
     private List<Connector> fConnectors;
     private boolean fConnectorsVisible;
 
-    public EntityNode() {
+    public NodeComponent() {
         initialize();
         fConnectors = null;
     }

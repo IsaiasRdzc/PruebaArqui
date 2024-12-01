@@ -1,4 +1,4 @@
-package CH.ifa.draw.samples.net;
+package CH.ifa.draw.samples.astahVersion;
 
 import CH.ifa.draw.framework.*;
 import CH.ifa.draw.standard.*;
