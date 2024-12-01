@@ -41,12 +41,6 @@ public class NodeComponent extends TextFigure {
         return super.containsPoint(x, y);
     }
 
-    private void drawBorder(Graphics g) {
-        Rectangle r = displayBox();
-        g.setColor(getFrameColor());
-        g.drawRect(r.x, r.y, r.width - 1, r.height - 1);
-    }
-
     @Override
     public void draw(Graphics g) {
         Rectangle r = displayBox();

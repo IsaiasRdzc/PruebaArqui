@@ -40,10 +40,6 @@ public class NodeText extends TextFigure {
         return super.containsPoint(x, y);
     }
 
-    private void drawBorder(Graphics g) {
-        // Este método está vacío para evitar que los bordes se dibujen
-    }
-
     public void draw(Graphics g) {
         super.draw(g);
         // Elimina la llamada a drawBorder(g) para no dibujar los bordes
